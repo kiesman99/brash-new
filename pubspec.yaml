@@ -1,0 +1,19 @@
+name: brashapi
+description: A web server built using the shelf package.
+# version: 1.0.0
+# homepage: https://www.example.com
+
+environment:
+  sdk: '>=2.7.0 <3.0.0'
+
+dependencies:
+  args: ^1.5.0
+  shelf: ^0.7.5
+  shelf_router: ^0.7.2
+  http: ^0.12.0+4
+  html: ^0.14.0+3
+  dio: ^3.0.8
+  http_server: ^0.9.8+3
+
+dev_dependencies:
+  pedantic: ^1.8.0
