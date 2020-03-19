@@ -1,11 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:dio/dio.dart';
-import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-import 'package:http/http.dart' as http;
-import 'package:http_server/http_server.dart';
+
+import '../pcurl.dart';
 
 class HouseNumberScraper {
   final String street_name;
@@ -19,24 +15,12 @@ class HouseNumberScraper {
       encoding: Encoding.getByName('iso-8859-1')
     );
 
-    // gro%DFe+johannisstra%DFe
+    var url = 'http://213.168.213.236/bremereb/bify/hausnummer.jsp?strasse=$encoded_street_name';
 
-    var dio = Dio(BaseOptions(
-      baseUrl: 'http://213.168.213.236/bremereb/bify/hausnummer.jsp?strasse=',
-      connectTimeout: 5000,
-      receiveTimeout: 5000,
-      headers: {
-        HttpHeaders.userAgentHeader: 'dio',
-        //HttpHeaders.contentTypeHeader: 'text/html;charset=ISO-8859-1'
-      },
-    ));
-
-    var response = await dio.get(encoded_street_name);
-
-    print(response.data);
+    var response = await PCurl.GET(url);
 
     //Use html parser
-    var document = parse(response.data, encoding: 'iso-8859-1');
+    var document = parse(response);
     var links = document.querySelectorAll('td[id] > a');
     var linkMap = [];
 
